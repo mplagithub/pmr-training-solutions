@@ -3,6 +3,9 @@
 #include <memory>
 #include <vector>
 
+// also:
+// strace ./standard_allocations 2>&1 | grep mmap
+
 int main() {
   using namespace std::chrono;
 
@@ -45,7 +48,7 @@ int main() {
   std::cout << "Re-deallocated " << N << " small blocks in "
             << duration_cast<milliseconds>(t6 - t5).count() << " ms\n";
 
-  // Large allocation (likely to trigger mmap/brk)
+  //   Large allocation(likely to trigger mmap / brk)
   std::cout << "\nBenchmark: Large allocation (may trigger mmap/brk)\n";
   auto t7 = high_resolution_clock::now();
   void* big_ptr = nullptr;
