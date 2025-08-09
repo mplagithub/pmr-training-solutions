@@ -33,7 +33,6 @@ unsigned char MyAllocator::buffer[256] = {0};
 
 MyAllocator alloc;
 
-// 1. Overload global operator new/delete here (print pointer and size)
 void* operator new(std::size_t size) {
   void* ptr = alloc.allocate(size);
   if (!ptr) throw std::bad_alloc();
@@ -46,8 +45,6 @@ int main() {
   A* a = new A;
   delete a;
 
-  // 6. Play with std::vector<int> (insert some elements, so how allocations are
-  // working)
   std::cout << "--- std::vector<int> allocation ---\n";
   std::vector<int> v;
   for (int i = 0; i < 3; ++i) v.push_back(i);

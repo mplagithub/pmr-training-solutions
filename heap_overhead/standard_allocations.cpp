@@ -56,18 +56,17 @@ int main() {
     big_ptr = ::operator new(LARGE_SIZE);
   } catch (const std::bad_alloc&) {
     std::cout << "Large allocation failed!\n";
+    return -1;
   }
 
-  if (big_ptr) {
-    size_t page_size = 4096;
-    for (size_t i = 0; i < LARGE_SIZE; i += page_size) {
-      static_cast<char*>(big_ptr)[i] = 1;
-    }
-    auto t8 = high_resolution_clock::now();
-    ::operator delete(big_ptr);
-    std::cout << "Allocated and touched 100MB in "
-              << duration_cast<milliseconds>(t8 - t7).count() << " ms\n";
+  size_t page_size = 4096;
+  for (size_t i = 0; i < LARGE_SIZE; i += page_size) {
+    static_cast<char*>(big_ptr)[i] = 1;
   }
+  auto t8 = high_resolution_clock::now();
+  ::operator delete(big_ptr);
+  std::cout << "Allocated and touched 100MB in "
+            << duration_cast<milliseconds>(t8 - t7).count() << " ms\n";
 
   return 0;
 }

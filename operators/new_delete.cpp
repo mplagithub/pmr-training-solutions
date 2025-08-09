@@ -88,9 +88,9 @@ int main() {
 
   // 6. Play with std::vector<int> (insert some elements, so how allocations are
   // working)
-  std::cout << "--- std::vector<int> allocation ---\n";
-  std::vector<int> v;
-  for (int i = 0; i < 10; ++i) v.push_back(i);
+  std::cout << "--- std::vector<C> allocation ---\n";
+  std::vector<C> v;
+  for (int i = 0; i < 10; ++i) v.push_back(C{});
 
   return 0;
 }

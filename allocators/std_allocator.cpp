@@ -29,8 +29,14 @@ class MyAllocator {
     ::operator delete(p);
   }
 
+  // Allow access to private members from other instantiations (for id_
+  // propagation in rebind)
+  template <typename>
+  friend class MyAllocator;
+
   template <typename U>
-  MyAllocator(const MyAllocator<U>& other) {}  // Rebind constructor
+  MyAllocator(const MyAllocator<U>& other)
+      : id_(other.id_) {}  // Rebind constructor
 
   // Comparison operators
   template <typename U>
