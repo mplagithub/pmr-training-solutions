@@ -5,14 +5,13 @@
 #include <new>
 #include <vector>
 
-// Test classes
-// class A {
-//   int x;
+class A {
+  int x;
 
-//  public:
-//   A() : x(1) { std::cout << "A constructed\n"; }
-//   ~A() { std::cout << "A destructed\n"; }
-// };
+ public:
+  A() : x(1) { std::cout << "A constructed\n"; }
+  ~A() { std::cout << "A destructed\n"; }
+};
 
 class MyMemoryResource : public std::pmr::memory_resource {
  public:
@@ -38,12 +37,11 @@ class MyMemoryResource : public std::pmr::memory_resource {
 };
 
 int main() {
-  // std::pmr::set_default_resource(nullptr);
   std::cout << "--- Allocating/Deallocating A ---\n";
 
   MyMemoryResource resource{};
-  // std::shared_ptr<A> a =
-  //     std::allocate_shared<A>(std::pmr::polymorphic_allocator<A>(&resource));
+  std::shared_ptr<A> a =
+      std::allocate_shared<A>(std::pmr::polymorphic_allocator<A>(&resource));
 
   std::cout << "--- Allocating/Deallocating for vectors ---\n";
   std::pmr::vector<int> v1(10, &resource);
